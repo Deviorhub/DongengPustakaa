@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./component/Header";
 import Card from "./component/Card";
 import Footer from "./component/Footer";
@@ -8,13 +8,21 @@ import { Dropdown } from "flowbite-react";
 import StarIcon from "@mui/icons-material/Star";
 
 const Dashboard = () => {
-  // State untuk dropdown
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [datas, setDatas] = useState([]);
 
-  // Handler untuk toggle dropdown
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let res = await fetch("http://localhost:4000/ceritas");
+        let { data } = await res.json();
+        setDatas(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -49,9 +57,9 @@ const Dashboard = () => {
         </Dropdown> */}
       </div>
       <div className="flex flex-wrap justify-between items-center container mx-auto px-20 py-10">
-        {dongengNusantara.map((data, index) => (
+        {datas.map((data, index) => (
           <Link key={index} to={`detail/${data.id}`} className="cursor-pointer">
-            <Card judul={data.judul} img={data.cover} rating={data.rating} />
+            <Card judul={data.judul} img={data.image} rating={data.rating} />
           </Link>
         ))}
       </div>
