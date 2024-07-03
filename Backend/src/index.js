@@ -5,6 +5,7 @@ import http from "http";
 import UserRoute from "./Routes/UserRoute.js";
 import KategoriRoute from "./Routes/KategoriRoute.js";
 import CeritaRoute from "./Routes/CeritaRoute.js";
+import LikeRoute from "./Routes/LikeRoute.js";
 import logRequest from "./Middleware/log.js";
 
 const PORT = process.env.PORT;
@@ -15,7 +16,7 @@ app.use(logRequest);
 app.use(express.json());
 
 const server = http.createServer(app);
-app.use(UserRoute, KategoriRoute, CeritaRoute);
+app.use(UserRoute, KategoriRoute, CeritaRoute, LikeRoute);
 
 server.listen(PORT, () => {
   console.log(`Server berjalan pada port ${PORT}`);
