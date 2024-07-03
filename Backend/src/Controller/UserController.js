@@ -1,9 +1,8 @@
 import {
   getAllUsers as modelGetAllUsers,
   getUsersById as modelGetUsersId,
-  findByEmail,
+  findByEmail as modelFindByEmail,
   createUser,
-  // addUsers
 } from "../Models/ModelUsers.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -40,6 +39,23 @@ export const getUsersById = async (req, res) => {
     res.status(500).json({
       message: error.message,
     });
+  }
+};
+
+export const findByEmail = async (req, res) => {
+  const {email} = req.params
+  try {
+    const data = await modelFindByEmail(email);
+    if (data.length > 0) {
+      res.json({
+        message: `GET users dengan email:${email} berhasil!`,
+        data: data,
+      })
+    }
+  } catch (error) {
+    res.status(404).json({
+      message: `Users dengan email:${email} tidak ditemukan.`,
+    })
   }
 };
 

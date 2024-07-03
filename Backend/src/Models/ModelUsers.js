@@ -14,8 +14,9 @@ export const getAllUsers = async () => {
 
 export const getUsersById = async (id) => {
   try {
-    const [data] = await db.execute("SELECT * FROM users WHERE id = ?", [id]);
-    console.log(data);
+    const SQLQuery = "SELECT * FROM users WHERE id = ?";
+    const [rows] = await db.execute(SQLQuery, [id]);
+    return rows;
   } catch (error) {
     console.error("Error pada proses getAllUsers:", error);
     throw error;
@@ -23,10 +24,14 @@ export const getUsersById = async (id) => {
 };
 
 export const findByEmail = async (email) => {
-  const [rows] = await db.execute("SELECT * FROM users WHERE email = ?", [
-    email,
-  ]);
-  return rows[0];
+  try {
+    const SQLQuery = "SELECT * FROM users WHERE email = ?";
+    const [rows] = await db.execute(SQLQuery, [email]);
+    return rows;
+  } catch (error) {
+    console.error("Error pada proses findByEmail:", error);
+    throw error;
+  }
 };
 
 export const createUser = async (user) => {
