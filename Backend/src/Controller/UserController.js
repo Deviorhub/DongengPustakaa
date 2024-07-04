@@ -42,23 +42,6 @@ export const getUsersById = async (req, res) => {
   }
 };
 
-export const findByEmail = async (req, res) => {
-  const {email} = req.params
-  try {
-    const data = await modelFindByEmail(email);
-    if (data.length > 0) {
-      res.json({
-        message: `GET users dengan email:${email} berhasil!`,
-        data: data,
-      })
-    }
-  } catch (error) {
-    res.status(404).json({
-      message: `Users dengan email:${email} tidak ditemukan.`,
-    })
-  }
-};
-
 const generateJwt = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET_TOKEN, {
     expiresIn: "1d",
