@@ -19,10 +19,11 @@ CardProduct.Header = ({ image, w, h }) => {
   );
 };
 
-CardProduct.Body = ({ judul, sinopsis }) => {
+CardProduct.Body = ({ judul, sinopsis, ket }) => {
   return (
     <div className="flex flex-col flex-grow p-4">
       <h3 className="text-2xl font-medium mb-2">{judul}</h3>
+      <p className="text-[13px] flex-grow">{ket}</p>
       <p className="text-[13px] mb-3 flex-grow">{sinopsis}</p>
       <div className="mt-auto">
         <Button color="bg-[#B2AFE7]" px="2" py="1" text="Detail Buku" />
