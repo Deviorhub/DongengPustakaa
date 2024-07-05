@@ -10,13 +10,8 @@ const CardProduct = ({ children, border, width, flex, center }) => {
 };
 
 CardProduct.Header = ({ image, w, h }) => {
-  return (
-    <img
-      src={image}
-      alt="Product"
-      className={`w-${w} h-${h} object-cover`}
-    />
-  );
+  console.log(`w-${w} h-${h}`);
+  return <img src={image} alt="Product" className={`w-${w} h-${h}`} />;
 };
 
 CardProduct.Body = ({ judul, sinopsis, ket }) => {
@@ -24,7 +19,13 @@ CardProduct.Body = ({ judul, sinopsis, ket }) => {
     <div className="flex flex-col flex-grow p-4">
       <h3 className="text-2xl font-medium mb-2">{judul}</h3>
       <p className="text-[13px] flex-grow">{ket}</p>
-      <p className="text-[13px] mb-3 flex-grow">{sinopsis}</p>
+      <p
+        className={`text-[13px] mb-3 flex-grow ${
+          ket != `Cerita Terbaru` && `h-44`
+        } text-justify`}
+      >
+        {sinopsis}
+      </p>
       <div className="mt-auto">
         <Button color="bg-[#B2AFE7]" px="2" py="1" text="Detail Buku" />
       </div>

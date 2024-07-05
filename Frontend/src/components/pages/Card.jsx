@@ -21,7 +21,7 @@ const Card = () => {
       <div className="grid grid-cols-3 mt-8 gap-6">
         {datas.map((data, id) => (
           <CardProduct width="md" flex="flex" center={"items-center"} key={id}>
-            <CardProduct.Header image={data.image} w="72" h="72" />
+            <CardProduct.Header image={data.image} w="52" h="72" />
             <CardProduct.Body judul={data.judul} ket="Cerita Terbaru" />
           </CardProduct>
         ))}
