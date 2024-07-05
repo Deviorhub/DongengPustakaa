@@ -1,26 +1,32 @@
 import React from "react";
 import Button from "../Elements/Button/Button";
 
-const CardProduct = (props) => {
-  const { children, border, width } = props;
+const CardProduct = ({ children, border, width, flex, center }) => {
   return (
-    <div className={`w-full max-w-${width} my-3 ${border} rounded-lg p-4 flex items-center space-x-4 mx-4 mt-8`}>
+    <div className={`${border} ${flex} ${center} rounded-lg ${width} h-full`}>
       {children}
     </div>
   );
 };
 
-CardProduct.Header = () => {
-  return <img src="/img/malinkundang.png" alt="Gambar Malin Kundang" />;
+CardProduct.Header = ({ image, w, h }) => {
+  return (
+    <img
+      src={image}
+      alt="Product"
+      className={`w-${w} h-${h} object-cover`}
+    />
+  );
 };
 
-CardProduct.Body = (props) => {
-  const { text, desc } = props;
+CardProduct.Body = ({ judul, sinopsis }) => {
   return (
-    <div>
-      <h3 className="text-2xl font-medium">{text}</h3>
-      <p className="text-[14px] mb-3">{desc}</p>
-      <Button color="bg-[#565656]" px="2" py="1" text="Detail Buku" />
+    <div className="flex flex-col flex-grow p-4">
+      <h3 className="text-2xl font-medium mb-2">{judul}</h3>
+      <p className="text-[13px] mb-3 flex-grow">{sinopsis}</p>
+      <div className="mt-auto">
+        <Button color="bg-[#B2AFE7]" px="2" py="1" text="Detail Buku" />
+      </div>
     </div>
   );
 };

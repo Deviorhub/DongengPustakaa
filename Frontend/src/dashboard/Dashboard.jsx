@@ -4,8 +4,9 @@ import Card from "./component/Card";
 import Footer from "./component/Footer";
 import { Link } from "react-router-dom";
 import { dongengNusantara } from "./data";
-import { Dropdown } from "flowbite-react";
 import StarIcon from "@mui/icons-material/Star";
+import { Dropdown } from "flowbite-react";
+import { ChevronDownIcon } from '@heroicons/react/outline';
 
 const Dashboard = () => {
   const [datas, setDatas] = useState([]);
@@ -27,34 +28,18 @@ const Dashboard = () => {
   return (
     <>
       <Header />
-      <div className="mt-10 mx-32">
-        {/* <Dropdown label="Dropdown button" dismissOnClick={false}>
-          <Dropdown.Item className="flex gap-x-5">
-            <StarIcon sx={{ color: "yellow" }} />5
-          </Dropdown.Item>
-          <Dropdown.Item className="flex gap-x-5">
-            <StarIcon sx={{ color: "yellow" }} />4
-          </Dropdown.Item>
-          <Dropdown.Item className="flex gap-x-5">
-            <StarIcon sx={{ color: "yellow" }} />3
-          </Dropdown.Item>
-          <Dropdown.Item className="flex gap-x-5">
-            <StarIcon sx={{ color: "yellow" }} />2
-          </Dropdown.Item>
-          <Dropdown.Item className="flex gap-x-5">
-            <StarIcon sx={{ color: "yellow" }} />1
-          </Dropdown.Item>
-        </Dropdown> */}
-        {/* <Dropdown
-          className="bg-yellow-200 text-red-500"
-          label="Dropdown button"
-          dismissOnClick={false}
-        >
+      <div className="container mx-auto mt-10">
+        <Dropdown label={
+          <div className="flex items-center text-[#282828]">
+            <span className="mr-2">Dropdown button</span>
+            <ChevronDownIcon className="w-5 h-5" />
+          </div>
+        } dismissOnClick={false}>
           <Dropdown.Item>Dashboard</Dropdown.Item>
           <Dropdown.Item>Settings</Dropdown.Item>
           <Dropdown.Item>Earnings</Dropdown.Item>
           <Dropdown.Item>Sign out</Dropdown.Item>
-        </Dropdown> */}
+        </Dropdown>
       </div>
       <div className="flex flex-wrap justify-between items-center container mx-auto px-20 py-10">
         {datas.map((data, index) => (
