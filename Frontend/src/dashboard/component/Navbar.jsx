@@ -37,12 +37,18 @@ const Navbar = () => {
   };
   return (
     <nav
-      className="mx-20 rounded-full h-16 flex items-center justify-between px-10"
+      className="mx-6 lg:mx-20 rounded-full h-16 flex items-center justify-between px-10"
       style={{ backgroundColor: "#8DAAE5" }}
     >
-      <div className="flex">
-        <p className="font-bold text-white">Dongeng Pustaka</p>
-        <ul className="flex gap-5 mx-10 text-white">
+      <div className="flex items-center">
+        <p className="font-bold text-white text-[24px]">Dongeng Pustaka</p>
+        <ul className="lg:flex gap-5 mx-10 text-white hidden">
+          {navItems.map((nav, index) => {
+            return <a href={nav.link}>{nav.name}</a>;
+          })}
+        </ul>
+        {/* mobile view */}
+        <ul className="flex flex-col gap-5 mx-10 text-white lg:hidden">
           {navItems.map((nav, index) => {
             return <a href={nav.link}>{nav.name}</a>;
           })}

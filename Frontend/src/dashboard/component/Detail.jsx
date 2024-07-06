@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
-import Footer from "./Footer";
+import Footer from "../../components/layouts/Footer";
 import Navbar from "./Navbar";
 import { dongengNusantara } from "../data";
 import { Link } from "react-router-dom";

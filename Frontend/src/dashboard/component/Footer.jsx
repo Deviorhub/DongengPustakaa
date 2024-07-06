@@ -39,10 +39,7 @@ const Footer = () => {
           </div>
         </div>
         <p className="text-white max-w-lg">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, ab
-          cum nam architecto, animi exercitationem aliquam ullam dolor est
-          similique repellat doloremque tenetur vel enim nobis illum iure
-          fugiat. Sit.
+          Kami memberikan cerita yang menginspirasi dan menghibur untuk menemani hari hari anda dimanapun berada.
         </p>
         <ul className="flex gap-3">
           <li>
