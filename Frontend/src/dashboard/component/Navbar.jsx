@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/Elements/Button/Button";
+import { Dropdown } from "flowbite-react";
 
 const Navbar = () => {
   const navItems = [
@@ -20,6 +21,20 @@ const Navbar = () => {
       link: "#kontak",
     },
   ];
+
+  const [isloggin, setIsloggin] = useState(false);
+
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+    if (username) {
+      setIsloggin(true);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
   return (
     <nav
       className="mx-20 rounded-full h-16 flex items-center justify-between px-10"
@@ -34,28 +49,37 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="flex gap-2">
-        {/* <button
-          className="h-8 text-white bg-yellow-100 rounded-full w-20"
-          style={{ backgroundColor: "#B2AFE7" }}
-        >
-          Masuk
-        </button>
-
-        <button
-          className="h-8 border-2 text-white bg-transparent rounded-full w-32"
-          style={{ borderColor: "#B2AFE7" }}
-        >
-          Daftar Gratis
-        </button> */}
-        <Button color="bg-[#B2AFE7]" px="6" py="2" text="Masuk" link="/login" />
-        <Button
-          border="border-2"
-          color="border-[#B2AFE7]"
-          px="6"
-          py="2"
-          text="Daftar"
-          link="/register"
-        />
+        {!isloggin ? (
+          <>
+            <Button
+              color="bg-[#B2AFE7]"
+              px="6"
+              py="2"
+              text="Masuk"
+              link="/login"
+            />
+            <Button
+              border="border-2"
+              color="border-[#B2AFE7]"
+              px="6"
+              py="2"
+              text="Daftar"
+              link="/register"
+            />
+          </>
+        ) : (
+          <div>
+            <Dropdown
+              label={`Halo, ${localStorage.getItem("username")}`}
+              dismissOnClick={false}
+            >
+              <Dropdown.Item>Profile</Dropdown.Item>
+              <Dropdown.Item className="text-red-500" onClick={handleLogout}>
+                Logout
+              </Dropdown.Item>
+            </Dropdown>
+          </div>
+        )}
       </div>
     </nav>
   );
