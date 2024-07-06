@@ -7,11 +7,15 @@ import { Link } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Detail = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [datas, setDatas] = useState([]);
+  const [likes, setLikes] = useState([]);
+  const [userLike, setUserLike] = useState(false);
+  const [totalLike, setTotalLike] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +31,36 @@ const Detail = () => {
     fetchData();
   }, [id]);
 
+  const tambahLike = () => {
+    setUserLike(!userLike);
+    userLike ? setTotalLike(totalLike - 1) : setTotalLike(totalLike + 1);
+  };
+
+  const addFavorite = () => {
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Berhasil menambahkan ke Favorite!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let res = await fetch("http://localhost:4000/likes");
+        let { data } = await res.json();
+        setLikes(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // const totalLike = likes.filter((like) => like.cerita_id == id);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,6 +74,30 @@ const Detail = () => {
 
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       let res = await fetch(`http://localhost:4000/likes`, {
+  //         method: 'POST',
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           email: e.target.email.value,
+  //           username: e.target.username.value,
+  //           password: e.target.password.value,
+  //         }),
+  //       });
+  //       let data = await res.json();
+  //       setDatas(data.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -67,6 +125,7 @@ const Detail = () => {
                   <button
                     className="w-full rounded-md text-white font-medium h-10"
                     style={{ backgroundColor: "#B2AFE7" }}
+                    onClick={() => addFavorite()}
                   >
                     Add Favorite
                   </button>
@@ -81,10 +140,15 @@ const Detail = () => {
                     <button
                       className="w-full rounded-md flex justify-start px-5 gap-12 items-center text-white font-medium h-10"
                       style={{ backgroundColor: "#8DAAE5" }}
+                      onClick={() => tambahLike()}
                     >
-                      <FavoriteIcon sx={{ color: "red" }} />
-                      124
+                      <FavoriteIcon
+                        sx={{ color: userLike ? "red" : "white" }}
+                      />
+                      {/* {totalLike.length} */}
+                      {totalLike}
                     </button>
+
                     <div
                       className="w-full rounded-md p-5"
                       style={{ backgroundColor: "#8DAAE5" }}
@@ -117,7 +181,10 @@ const Detail = () => {
                 <h3 className="text-slate-700 font-semibold mb-4 text-xl">
                   Cerita Rakyat: {data.judul}
                 </h3>
-                <p className="text-justify">{data.isi}</p>
+                <div
+                  className="text-justify"
+                  dangerouslySetInnerHTML={{ __html: data.isi }}
+                ></div>
               </div>
             </div>
             <div>
