@@ -22,7 +22,7 @@ const Card = (props) => {
   }
 
   return (
-    <div className="flex flex-col gap-3 my-5 items-center justify-center">
+    <div className="flex flex-col gap-3 mt-5 items-center justify-center">
       <img src={img} alt="" className="w-52 h-72" />
       <p>{judul}</p>
       <div className="flex items-center">{stars}</div>
