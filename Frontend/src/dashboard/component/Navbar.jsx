@@ -70,7 +70,7 @@ const Navbar = () => {
         ) : (
           <div>
             <Dropdown
-              label={`Halo, ${localStorage.getItem("username")}`}
+              label={`Halo, ${localStorage.getItem("username")} \u00A0`}
               dismissOnClick={false}
             >
               <Dropdown.Item>Profile</Dropdown.Item>
