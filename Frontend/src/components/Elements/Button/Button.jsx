@@ -8,7 +8,8 @@ const Button = (props) => {
       type="submit"
       className={`${border} ${color} px-${px} py-${py} ${width} rounded-full text-[16px] text-white font-semibold`}
     >
-      <Link to={`${link}`}>{text}</Link>
+      {/* <Link to={`${link}`}>{text}</Link> */}
+      Kirim
     </button>
   );
 };

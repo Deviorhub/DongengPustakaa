@@ -70,7 +70,7 @@ export const registerUser = async (req, res, next) => {
     }
 
     // Periksa apakah email sudah digunakan
-    const userExists = await findByEmail(email);
+    const userExists = await modelFindByEmail(email);
 
     if (userExists) {
       res.status(400);
@@ -123,7 +123,7 @@ export const loginUser = async (req, res, next) => {
     }
 
     // Cari email
-    const userExist = await findByEmail(email);
+    const userExist = await modelFindByEmail(email);
     if (!userExist) {
       res.status(400);
       throw new Error("User tidak ditemukan, registrasi terlebih dahulu");
@@ -160,7 +160,7 @@ export const loginUser = async (req, res, next) => {
     });
   } catch (error) {
     // Tangani kesalahan
-    next(error);
+    console.log(error);
   }
 };
 
