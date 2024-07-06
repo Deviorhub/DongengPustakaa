@@ -25,11 +25,8 @@ const FormLogin = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        // setFormData({
-        //   username: "",
-        //   email: "",
-        //   password: "",
-        // });
+        localStorage.setItem("username", data.username);
+        localStorage.setItem("email", data.email);
         navigate("/dashboard");
       } else {
         alert(data.message);
@@ -43,16 +40,21 @@ const FormLogin = () => {
       <InputForm
         label="Email"
         type="email"
-        placeholder="example@gmail.com"
+        placeholder="Masukkan email anda..."
         name="email"
       />
       <InputForm
         label="Password"
         type="password"
-        placeholder="******"
+        placeholder="Masukkan password anda..."
         name="password"
       />
-      <Button color="bg-[#B2AFE7]" px="6" py="2" text="Masuk" width="w-full" />
+      <button
+        className="bg-[#B2AFE7] w-full px-6 py-2 rounded-full text-white"
+        type="submit"
+      >
+        Masuk
+      </button>
     </form>
   );
 };

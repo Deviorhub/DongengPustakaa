@@ -59,7 +59,7 @@ const FormRegister = () => {
       <InputForm
         label="Username"
         type="text"
-        placeholder="Lowkey is Here"
+        placeholder="Masukkan username anda..."
         name="username"
         value={formData.username}
         onChange={handleChange}
@@ -67,7 +67,7 @@ const FormRegister = () => {
       <InputForm
         label="Email"
         type="email"
-        placeholder="example@gmail.com"
+        placeholder="Masukkan email anda..."
         name="email"
         value={formData.email}
         onChange={handleChange}
@@ -75,12 +75,17 @@ const FormRegister = () => {
       <InputForm
         label="Password"
         type="password"
-        placeholder="******"
+        placeholder="Masukkan password anda..."
         name="password"
         value={formData.password}
         onChange={handleChange}
       />
-      <Button color="bg-[#B2AFE7]" px="6" py="2" text="Daftar" width="w-full" />
+      <button
+        className="bg-[#B2AFE7] w-full px-6 py-2 rounded-full text-white"
+        type="submit"
+      >
+        Daftar
+      </button>
     </form>
   );
 };
