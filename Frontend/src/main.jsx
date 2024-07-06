@@ -7,6 +7,7 @@ import Login from "./components/pages/Login.jsx";
 import Register from "./components/pages/Register.jsx";
 import Dashboard from "./dashboard/Dashboard.jsx";
 import Detail from "./dashboard/component/Detail.jsx";
+import About from "./components/pages/About.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,6 +19,7 @@ root.render(
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/detail/:id" element={<Detail />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

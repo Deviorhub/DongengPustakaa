@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./dashboard/component/Navbar";
 import Button from "./components/Elements/Button/Button";
 import Card from "./components/pages/Card";
-import Footer from "./dashboard/component/Footer";
+import Footer from "./components/layouts/Footer";
 import CardProduct from "./components/Fragments/CardProduct";
 
 function App() {
@@ -10,15 +10,23 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/ceritas");
-        let { data } = await res.json();
-        setDatas(data);
+        const res = await fetch("http://localhost:4000/ceritas");
+        const { data } = await res.json();
+
+        const sortedData = data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+
+        const latestData = sortedData.slice(0, 4);
+
+        setDatas(latestData);
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching data:", error);
       }
     };
+
     fetchData();
-  });
+  }, []);
   return (
     <>
       {/* hero */}
@@ -34,9 +42,9 @@ function App() {
       >
         {/* navbar */}
         <Header />
-        <div className="container mx-auto  mt-[150px]">
-          <div className="text-center text-white">
-            <h1 className="text-6xl font-bold max-w-5xl mx-auto mb-3">
+        <div className="container mx-auto mt-[60px] lg:mt-[155px]">
+          <div className="text-center p-4 lg:p-10 text-white">
+            <h1 className="text-5xl lg:text-6xl font-bold lg:max-w-5xl mx-auto mb-3">
               Temukan Kisah Menakjubkan di Koleksi Buku Cerita Terbaru Kami!
             </h1>
             <p className="text-[18px] max-w-3xl mx-auto mb-6">
@@ -45,21 +53,15 @@ function App() {
               usia. Mulai perjalanan membaca Anda dan temukan keajaiban di
               setiap cerita!
             </p>
-            <Button
-              color="bg-[#B2AFE7]"
-              width="w-1/6"
-              px="12"
-              py="3"
-              text="Mulai Sekarang"
-            />
+            <Button color="bg-[#B2AFE7]" px="12" py="3" text="Mulai Sekarang" />
           </div>
         </div>
       </section>
 
       {/* cerita */}
       <section>
-        <div className="container mx-auto mt-[107px]">
-          <div className="flex flex-col">
+        <div className="container mx-auto mt-24 lg:mt-[107px] lg:px-16">
+          <div className="flex flex-col px-8">
             <h1 className="text-4xl font-semibold">Koleksi Cerita Pilihan</h1>
             <p>
               Kami menyediakan rekomendasi kumpulan cerita yang menginspirasi
@@ -72,26 +74,27 @@ function App() {
 
       {/* tentang */}
       <section className="bg-[#F2F2F2]" id="tentang">
-        <div className="container mx-auto mt-[107px]">
-          <div className="flex justify-between items-center p-28 space-x-8">
-            <img src="/img/about.png" alt="" />
-            <div>
-              <h1 className="text-5xl font-semibold mb-3">
+        <div className="container mx-auto mt-20 lg:mt-[107px]">
+          <div className="flex flex-col lg:flex lg:flex-row lg:justify-between lg:items-center lg:p-28 space-x-8">
+            <img className="p-4" src="/img/about.png" alt="" />
+            <div className="p-2">
+              <h1 className="text-3xl lg:text-5xl font-bold mb-3">
                 Lebih Dari 100+ Pengguna Telah Membaca di Dongeng Pustaka{" "}
               </h1>
-              <p className="mb-6">
-                Lorem ipsum dolor sit amet consectetur. Odio quam lectus a porta
-                lobortis etiam elit. Viverra fermentum aliquet ultricies vel
-                aliquam egestas donec a aliquet. Hendrerit vitae neque quam
-                ornare orci cursus pharetra. Elementum mattis turpis pharetra
-                pulvinar sit sit pellentesque aliquet porttitor. Egestas cras ac
-                pretium risus eu fermentum sed.
+              <p className="mb-4 lg:mb-6">
+                Dongeng Pustaka telah mencapai tonggak pencapaian baru dengan
+                lebih dari 100 pengguna yang telah menikmati cerita-cerita
+                menarik kami. Ini adalah bukti popularitas dan kualitas konten
+                yang kami sajikan. Terima kasih kepada semua pembaca setia kami
+                yang telah membantu kami mencapai pencapaian ini. Mari terus
+                menjelajahi dunia dongeng bersama di Dongeng Pustaka!
               </p>
               <Button
                 color="bg-[#B2AFE7]"
                 px="6"
                 py="2"
                 text="Jelajahi Sekarang"
+                link="/about"
               />
             </div>
           </div>
@@ -100,7 +103,7 @@ function App() {
 
       {/* update cerita */}
       <section>
-        <div className="container mx-auto mt-[107px] mb-10">
+        <div className="container mx-auto mt-20 lg:mt-[107px] mb-10 px-8">
           <div className="flex flex-col">
             <h1 className="text-4xl font-semibold">Cerita Baru Terupdate</h1>
             <p>

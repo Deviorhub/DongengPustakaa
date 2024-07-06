@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./component/Header";
 import Card from "./component/Card";
-import Footer from "./component/Footer";
+import Footer from "../components/layouts/Footer";
 import { Link } from "react-router-dom";
 import { dongengNusantara } from "./data";
 import StarIcon from "@mui/icons-material/Star";
