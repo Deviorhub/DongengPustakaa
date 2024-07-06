@@ -20,12 +20,12 @@ const About = () => {
       >
         {/* navbar */}
         <Navbar />
-        <div className="container mx-auto  mt-[150px]">
+        <div className="container mx-auto px-8 mt-[60px] lg:mt-[150px]">
           <div className="text-white">
             <h1 className="text-6xl font-bold max-w-5xl mb-3">
               Lorem Ipsun Dolor Amet
             </h1>
-            <p className="text-[18px] max-w-3xl mb-6">
+            <p className="text-[18px] max-w-6xl mb-6">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto beatae obcaecati, voluptatum corrupti repudiandae perferendis nobis adipisci rem quisquam mollitia quae esse sunt iure corporis odit numquam voluptates quis quasi.
             </p>
             <Button

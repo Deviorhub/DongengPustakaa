@@ -10,15 +10,23 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/ceritas");
-        let { data } = await res.json();
-        setDatas(data);
+        const res = await fetch("http://localhost:4000/ceritas");
+        const { data } = await res.json();
+
+        const sortedData = data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+
+        const latestData = sortedData.slice(0, 4);
+
+        setDatas(latestData);
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching data:", error);
       }
     };
+
     fetchData();
-  });
+  }, []);
   return (
     <>
       {/* hero */}
@@ -45,12 +53,7 @@ function App() {
               usia. Mulai perjalanan membaca Anda dan temukan keajaiban di
               setiap cerita!
             </p>
-            <Button
-              color="bg-[#B2AFE7]"
-              px="12"
-              py="3"
-              text="Mulai Sekarang"
-            />
+            <Button color="bg-[#B2AFE7]" px="12" py="3" text="Mulai Sekarang" />
           </div>
         </div>
       </section>
