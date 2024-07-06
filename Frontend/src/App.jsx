@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./dashboard/component/Navbar";
 import Button from "./components/Elements/Button/Button";
 import Card from "./components/pages/Card";
@@ -6,6 +6,19 @@ import Footer from "./dashboard/component/Footer";
 import CardProduct from "./components/Fragments/CardProduct";
 
 function App() {
+  const [datas, setDatas] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let res = await fetch("http://localhost:4000/ceritas");
+        let { data } = await res.json();
+        setDatas(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  });
   return (
     <>
       {/* hero */}
@@ -94,28 +107,20 @@ function App() {
               Kami menyediakan rekomendasi kumpulan cerita yang menginspirasi
               dan menghibur untuk anda
             </p>
-            <div className="flex justify-evenly item-center">
-              <CardProduct width="lg" border="border-2 border-[#B4F4FA]">
-                <CardProduct.Header />
-                <CardProduct.Body
-                  text="Malin Kundang"
-                  desc="Lorem ipsum dolor sit amet consectetur. Odio quam lectus a porta lobortis etiam elit."
-                />
-              </CardProduct>
-              <CardProduct width="lg" border="border-2 border-[#B4F4FA]">
-                <CardProduct.Header />
-                <CardProduct.Body
-                  text="Malin Kundang"
-                  desc="Lorem ipsum dolor sit amet consectetur. Odio quam lectus a porta lobortis etiam elit."
-                />
-              </CardProduct>
-              <CardProduct width="lg" border="border-2 border-[#B4F4FA]">
-                <CardProduct.Header />
-                <CardProduct.Body
-                  text="Malin Kundang"
-                  desc="Lorem ipsum dolor sit amet consectetur. Odio quam lectus a porta lobortis etiam elit."
-                />
-              </CardProduct>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+              {datas.map((data, id) => (
+                <CardProduct
+                  key={id}
+                  border="border-2 border-[#B4F4FA]"
+                  width="w-full"
+                >
+                  <CardProduct.Header image={data.image} w="full" h="72" />
+                  <CardProduct.Body
+                    judul={data.judul}
+                    sinopsis={data.sinopsis}
+                  />
+                </CardProduct>
+              ))}
             </div>
           </div>
         </div>

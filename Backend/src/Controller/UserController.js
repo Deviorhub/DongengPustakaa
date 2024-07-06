@@ -42,23 +42,6 @@ export const getUsersById = async (req, res) => {
   }
 };
 
-export const findByEmail = async (req, res) => {
-  const {email} = req.params
-  try {
-    const data = await modelFindByEmail(email);
-    if (data.length > 0) {
-      res.json({
-        message: `GET users dengan email:${email} berhasil!`,
-        data: data,
-      })
-    }
-  } catch (error) {
-    res.status(404).json({
-      message: `Users dengan email:${email} tidak ditemukan.`,
-    })
-  }
-};
-
 const generateJwt = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET_TOKEN, {
     expiresIn: "1d",
@@ -87,7 +70,7 @@ export const registerUser = async (req, res, next) => {
     }
 
     // Periksa apakah email sudah digunakan
-    const userExists = await findByEmail(email);
+    const userExists = await modelFindByEmail(email);
 
     if (userExists) {
       res.status(400);
@@ -140,7 +123,7 @@ export const loginUser = async (req, res, next) => {
     }
 
     // Cari email
-    const userExist = await findByEmail(email);
+    const userExist = await modelFindByEmail(email);
     if (!userExist) {
       res.status(400);
       throw new Error("User tidak ditemukan, registrasi terlebih dahulu");
@@ -177,7 +160,7 @@ export const loginUser = async (req, res, next) => {
     });
   } catch (error) {
     // Tangani kesalahan
-    next(error);
+    console.log(error);
   }
 };
 

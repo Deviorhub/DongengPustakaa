@@ -24,14 +24,10 @@ export const getUsersById = async (id) => {
 };
 
 export const findByEmail = async (email) => {
-  try {
-    const SQLQuery = "SELECT * FROM users WHERE email = ?";
-    const [rows] = await db.execute(SQLQuery, [email]);
-    return rows;
-  } catch (error) {
-    console.error("Error pada proses findByEmail:", error);
-    throw error;
-  }
+  const [rows] = await db.execute("SELECT * FROM users WHERE email = ?", [
+    email,
+  ]);
+  return rows[0];
 };
 
 export const createUser = async (user) => {
