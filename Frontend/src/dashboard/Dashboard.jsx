@@ -7,6 +7,7 @@ import { dongengNusantara } from "./data";
 import StarIcon from "@mui/icons-material/Star";
 import { Dropdown } from "flowbite-react";
 import { ChevronDownIcon } from '@heroicons/react/outline';
+import InputSearch from "./component/InputSearch";
 
 const Dashboard = () => {
   const [datas, setDatas] = useState([]);
@@ -29,6 +30,7 @@ const Dashboard = () => {
     <>
       <Header />
       <div className="container mx-auto mt-10">
+        <div className="flex items-center gap-x-6">
         <Dropdown label={
           <div className="flex items-center text-[#282828]">
             <span className="mr-2">Dropdown button</span>
@@ -40,6 +42,8 @@ const Dashboard = () => {
           <Dropdown.Item>Earnings</Dropdown.Item>
           <Dropdown.Item>Sign out</Dropdown.Item>
         </Dropdown>
+        <InputSearch />
+        </div>
       </div>
       <div className="flex flex-wrap justify-between items-center container mx-auto px-20 py-10">
         {datas.map((data, index) => (
