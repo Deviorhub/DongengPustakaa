@@ -53,7 +53,7 @@ function App() {
               usia. Mulai perjalanan membaca Anda dan temukan keajaiban di
               setiap cerita!
             </p>
-            <Button color="bg-[#B2AFE7]" px="12" py="3" text="Mulai Sekarang" />
+            <Button color="bg-[#B2AFE7]" px="12" py="3" width="w-1/6" text="Mulai Sekarang" />
           </div>
         </div>
       </section>
