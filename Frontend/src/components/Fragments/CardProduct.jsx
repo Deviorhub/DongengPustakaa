@@ -27,7 +27,7 @@ CardProduct.Body = ({ judul, sinopsis, ket }) => {
         {sinopsis}
       </p>
       <div className="mt-auto">
-        <Button color="bg-[#B2AFE7]" px="4" py="1" text="Detail Buku" />
+        <Button color="bg-[#B2AFE7]" px="4" py="1" width="w-2/4" text="Detail Buku" />
       </div>
     </div>
   );
