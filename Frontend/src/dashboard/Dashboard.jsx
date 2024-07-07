@@ -12,6 +12,7 @@ import { SearchIcon } from "@heroicons/react/solid";
 
 const Dashboard = () => {
   const [datas, setDatas] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,6 +27,35 @@ const Dashboard = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const apiUrl = "http://localhost:4000/search";
+
+    // Objek untuk menyimpan parameter-parameter query
+    const params = new URLSearchParams();
+    params.append("judul", search);
+
+    // Gabungkan parameter dengan URL
+    const url = `${apiUrl}?${params.toString()}`;
+
+    // Buat permintaan fetch dengan URL yang sudah dibangun
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setDatas(data);
+      })
+      .catch((error) => {
+        // Tangani kesalahan jika ada
+        console.error("Fetch error:", error);
+      });
+  }, [search]);
+
+  // Contoh endpoint API
 
   return (
     <>
