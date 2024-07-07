@@ -13,7 +13,7 @@ export const protect = async (req, res, next) => {
     const verified = await jwt.verify(token, process.env.JWT_SECRET_TOKEN);
 
     const [rows] = await db.execute(
-      "SELECT id, username, email, bio, image, phone FROM users WHERE id = ?",
+      "SELECT id, username, email, image FROM users WHERE id = ?",
       [verified.id]
     );
 
@@ -28,9 +28,7 @@ export const protect = async (req, res, next) => {
       id: user.id,
       username: user.username,
       email: user.email,
-      bio: user.bio,
       image: user.image,
-      phone: user.phone,
     };
 
     next();
