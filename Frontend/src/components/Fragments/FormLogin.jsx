@@ -4,6 +4,7 @@ import InputForm from "../Elements/Input/Index";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import Cookies from "js-cookie";
+import AuthLogin from "../../authLogin";
 
 const FormLogin = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const FormLogin = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           email: e.target.email.value,
           password: e.target.password.value,
@@ -62,4 +64,4 @@ const FormLogin = () => {
   );
 };
 
-export default FormLogin;
+export default AuthLogin(FormLogin);
