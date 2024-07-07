@@ -2,6 +2,8 @@ import React from "react";
 import Button from "../Elements/Button/Button";
 import InputForm from "../Elements/Input/Index";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import Cookies from "js-cookie";
 
 const FormLogin = () => {
   const navigate = useNavigate();
@@ -27,6 +29,7 @@ const FormLogin = () => {
       if (response.ok) {
         localStorage.setItem("username", data.username);
         localStorage.setItem("email", data.email);
+        // Cookies.set("token", data.token);
         navigate("/dashboard");
       } else {
         alert(data.message);

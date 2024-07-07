@@ -7,6 +7,7 @@ import StarIcon from "@mui/icons-material/Star";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useParams } from "react-router-dom";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import Cookies from "js-cookie";
 
 const Detail = () => {
   const { id } = useParams();
@@ -50,6 +51,9 @@ const Detail = () => {
     (us) => us.email == localStorage.getItem("email")
   );
 
+  // const token = Cookies.get("token");
+  // console.log(token);
+  // console.log(`Bearer ${token}`);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -57,6 +61,7 @@ const Detail = () => {
           (us) => us.email == localStorage.getItem("email")
         );
         let res = await fetch("http://localhost:4000/likes");
+        // console.log(`Bearer ${token}`);
         let { data } = await res.json();
         const total = data.filter((like) => like.cerita_id == id);
         setLikes(total);
@@ -85,10 +90,17 @@ const Detail = () => {
     fetchData();
   }, []);
 
+  console.log(likes);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/likes");
+        let res = await fetch("http://localhost:4000/likes", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         let { data } = await res.json();
         const total = data.filter((like) => like.cerita_id == id);
         setLikes(total);
@@ -102,7 +114,12 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/likes");
+        let res = await fetch("http://localhost:4000/likes", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         let { data } = await res.json();
         const total = data.filter((like) => like.cerita_id == id);
         setLikes(total);
@@ -116,7 +133,12 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/favorites");
+        let res = await fetch("http://localhost:4000/favorites", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         let { data } = await res.json();
         const total = data.filter((fav) => fav.id_cerita == id);
         if (total.length > 0) {
@@ -175,7 +197,12 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/favorites");
+        let res = await fetch("http://localhost:4000/favorites", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         let { data } = await res.json();
         const total = data.filter((fav) => fav.id_cerita == id);
         setFavorites(total);
@@ -189,7 +216,12 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/favorites");
+        let res = await fetch("http://localhost:4000/favorites", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         let { data } = await res.json();
         const total = data.filter((fav) => fav.id_cerita == id);
         setFavorites(total);
@@ -203,7 +235,12 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch(`http://localhost:4000/ceritas`);
+        let res = await fetch(`http://localhost:4000/ceritas`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         let data = await res.json();
         setDatas(data.data);
       } catch (error) {
