@@ -37,6 +37,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.clear();
+    alert("Anda Berhasil Logout");
     window.location.href = "/";
   };
 

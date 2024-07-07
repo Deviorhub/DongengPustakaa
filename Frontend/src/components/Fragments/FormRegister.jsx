@@ -40,17 +40,14 @@ const FormRegister = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        // setFormData({
-        //   username: "",
-        //   email: "",
-        //   password: "",
-        // });
+        alert("Selamat Anda Berhasil Daftar");
         navigate("/login");
       } else {
         alert(data.message);
       }
     } catch (error) {
       console.log(error);
+      alert("Maaf, Terjadi Kesalahan Saat Daftar");
     }
   };
 
