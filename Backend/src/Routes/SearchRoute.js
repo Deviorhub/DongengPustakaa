@@ -1,10 +1,14 @@
-import express from "express"
+import express from 'express';
 
-import{
+import {
     getAllSearchController,
-} from "../Controller/SearchController.js"
+    searchAllKategoriController,
+    searchByRatingController
+} from '../Controller/SearchController.js';
 
-const router = express.Router()
-router.get("/search", getAllSearchController)
+const router = express.Router();
+router.get('/search', getAllSearchController);
+router.get('/search/kategori/:kategori_id', searchAllKategoriController);
+router.get('/search/rating/:rating', searchByRatingController);
 
-export default router
+export default router;
