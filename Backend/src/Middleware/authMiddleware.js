@@ -23,7 +23,6 @@ export const protect = async (req, res, next) => {
     }
 
     const user = rows[0];
-
     req.user = {
       id: user.id,
       username: user.username,
