@@ -23,7 +23,7 @@ async function checkLoginStatus() {
 function AuthLogin(Component) {
   return function AuthenticatedComponent(props) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
       const fetchLoginStatus = async () => {
@@ -41,9 +41,9 @@ function AuthLogin(Component) {
       fetchLoginStatus();
     }, []);
 
-    if (isLoading) {
-      return <div>Loading...</div>;
-    }
+    // if (isLoading) {
+    //   return <div>Loading...</div>;
+    // }
 
     return !isLoggedIn ? <Component {...props} /> : <Navigate to="/" />;
   };

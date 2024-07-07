@@ -47,9 +47,15 @@ const Detail = () => {
     fetchData();
   }, []);
 
-  const [userLogin] = user.filter(
+  let [userLogin] = user.filter(
     (us) => us.email == localStorage.getItem("email")
   );
+
+  if (userLogin == undefined) {
+    userLogin = 0;
+  }
+
+  console.log("gak", userLogin);
 
   // const token = Cookies.get("token");
   // console.log(token);
@@ -57,19 +63,27 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [userLogin] = user.filter(
-          (us) => us.email == localStorage.getItem("email")
-        );
-        let res = await fetch("http://localhost:4000/likes");
+        let res = await fetch("http://localhost:4000/likes", {
+          method: "GET",
+          credentials: "include",
+        });
         // console.log(`Bearer ${token}`);
         let { data } = await res.json();
         const total = data.filter((like) => like.cerita_id == id);
         setLikes(total);
+        console.log("total", total);
         if (total.length > 0) {
+          let [userLogin] = user.filter(
+            (us) => us.email == localStorage.getItem("email")
+          );
+
+          if (userLogin == undefined) {
+            userLogin = 0;
+          }
           const { id: user_id } = userLogin;
           const diLike = total.filter((like) => like.user_id == user_id);
           console.log(user_id);
-          console.log(total[0].user_id);
+          console.log("gfgfg", total[0].user_id);
           if (diLike.length > 0) {
             // console.log("hi");
             setUserLike(true);
@@ -97,9 +111,7 @@ const Detail = () => {
       try {
         let res = await fetch("http://localhost:4000/likes", {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: "include",
         });
         let { data } = await res.json();
         const total = data.filter((like) => like.cerita_id == id);
@@ -116,9 +128,7 @@ const Detail = () => {
       try {
         let res = await fetch("http://localhost:4000/likes", {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: "include",
         });
         let { data } = await res.json();
         const total = data.filter((like) => like.cerita_id == id);
@@ -135,16 +145,11 @@ const Detail = () => {
       try {
         let res = await fetch("http://localhost:4000/favorites", {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: "include",
         });
         let { data } = await res.json();
         const total = data.filter((fav) => fav.id_cerita == id);
         if (total.length > 0) {
-          const [userLogin] = user.filter(
-            (us) => us.email == localStorage.getItem("email")
-          );
           const { id: user_id } = userLogin;
           const diFav = total.filter((fav) => fav.id_user == user_id);
           console.log(user_id);
@@ -175,13 +180,9 @@ const Detail = () => {
 
   useEffect(() => {
     if (favorites.length > 0) {
-      const [userLogin] = user.filter(
-        (us) => us.email == localStorage.getItem("email")
-      );
       const { id: user_id } = userLogin;
       const diFav = favorites.filter((fav) => fav.id_user == user_id);
       console.log(user_id);
-      console.log(diFav[0].id_user);
       if (diFav.length > 0) {
         console.log("ki");
         setNameFav("Remove Favorite");
@@ -199,9 +200,7 @@ const Detail = () => {
       try {
         let res = await fetch("http://localhost:4000/favorites", {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: "include",
         });
         let { data } = await res.json();
         const total = data.filter((fav) => fav.id_cerita == id);
@@ -218,9 +217,7 @@ const Detail = () => {
       try {
         let res = await fetch("http://localhost:4000/favorites", {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: "include",
         });
         let { data } = await res.json();
         const total = data.filter((fav) => fav.id_cerita == id);
@@ -237,9 +234,6 @@ const Detail = () => {
       try {
         let res = await fetch(`http://localhost:4000/ceritas`, {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         });
         let data = await res.json();
         setDatas(data.data);
@@ -259,6 +253,7 @@ const Detail = () => {
           `http://localhost:4000/likes/${telahDiLike[0].id}`,
           {
             method: "DELETE",
+            credentials: "include",
           }
         );
 
@@ -287,6 +282,7 @@ const Detail = () => {
       try {
         let res = await fetch("http://localhost:4000/likes", {
           method: "POST",
+          credentials: "include",
           body: data,
           headers: {
             "Content-Type": "application/json",
@@ -313,6 +309,7 @@ const Detail = () => {
           `http://localhost:4000/favorites/${telahDiFav[0].id}`,
           {
             method: "DELETE",
+            credentials: "include",
           }
         );
 
@@ -340,6 +337,7 @@ const Detail = () => {
       try {
         let res = await fetch("http://localhost:4000/favorites", {
           method: "POST",
+          credentials: "include",
           body: data,
           headers: {
             "Content-Type": "application/json",
