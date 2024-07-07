@@ -20,13 +20,16 @@ const About = () => {
       >
         {/* navbar */}
         <Navbar />
-        <div className="container mx-auto px-8 mt-[60px] lg:mt-[150px]">
+        <div className="container mx-auto px-8 mt-[60px] lg:mt-[100px]">
           <div className="text-white">
             <h1 className="text-6xl font-bold max-w-5xl mb-3">
-              Lorem Ipsun Dolor Amet
+              Selamat datang di Cerita Rakyat Indonesia
             </h1>
-            <p className="text-[18px] max-w-6xl mb-6">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto beatae obcaecati, voluptatum corrupti repudiandae perferendis nobis adipisci rem quisquam mollitia quae esse sunt iure corporis odit numquam voluptates quis quasi.
+            <p className="text-[20px] max-w-5xl mb-4">
+              Tujuan utama untuk menemukan kisah-kisah kaya dan beragam
+              yang telah diwariskan dari generasi ke generasi di Indonesia. Misi
+              kami adalah untuk melestarikan dan berbagi kebijaksanaan, budaya,
+              dan tradisi abadi yang terkandung dalam cerita-cerita ini.
             </p>
             <Button
               color="bg-[#B2AFE7]"
@@ -43,7 +46,6 @@ const About = () => {
       <WhyUs />
 
       {/* tentang kami */}
-      
 
       {/* footer */}
       <Footer />

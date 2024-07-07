@@ -104,7 +104,7 @@ const Navbar = () => {
             </>
           ) : (
             <div>
-              <Dropdown
+              <Dropdown className="flex items-center px-4 space-x-2"
                 label={`Halo, ${localStorage.getItem("username")}`}
                 dismissOnClick={false}
               >

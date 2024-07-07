@@ -9,16 +9,7 @@ const Card = () => {
       try {
         let res = await fetch("http://localhost:4000/ceritas");
         let { data } = await res.json();
-
-        // Mengurutkan data berdasarkan waktu pembaruan terbaru
-        const sortedData = data.sort(
-          (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-        );
-
-        // Hanya mengambil 5 data terbaru sebagai contoh
-        const latestData = sortedData.slice(0, 6);
-
-        setDatas(latestData);
+        setDatas(data);
       } catch (error) {
         console.log(error);
       }
