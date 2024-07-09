@@ -112,21 +112,22 @@ export const loginUser = async (req, res, next) => {
   try {
     // Validasi
     if (!email || !password) {
-      res.status(400);
-      throw new Error("Email atau Password harus diisi");
+      return res
+        .status(400)
+        .json({ message: "Email atau Password harus diisi" });
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      res.status(400);
-      throw new Error("Format email tidak valid");
+      return res.status(400).json({ message: "Format email tidak valid" });
     }
 
     // Cari email
     const userExist = await modelFindByEmail(email);
     if (!userExist) {
-      res.status(400);
-      throw new Error("User tidak ditemukan, registrasi terlebih dahulu");
+      return res
+        .status(400)
+        .json({ message: "User tidak ditemukan, registrasi terlebih dahulu" });
     }
 
     // Compare password
@@ -135,7 +136,7 @@ export const loginUser = async (req, res, next) => {
       userExist.password
     );
     if (!passwordIsCorrect) {
-      res.status(400);
+      return res.status(400).json({ message: "Password salah" });
     }
 
     // Generate token
@@ -151,7 +152,7 @@ export const loginUser = async (req, res, next) => {
     });
 
     // Kirim respons
-    return res.status(201).json({
+    return res.status(200).json({
       id: userExist.id,
       username: userExist.username,
       email: userExist.email,
@@ -161,6 +162,7 @@ export const loginUser = async (req, res, next) => {
   } catch (error) {
     // Tangani kesalahan
     console.log(error);
+    return res.status(500).json({ message: "Terjadi kesalahan pada server" });
   }
 };
 
