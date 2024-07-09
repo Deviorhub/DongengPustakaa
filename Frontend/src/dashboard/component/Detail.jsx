@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
-import Footer from "./Footer";
+import Footer from "../../components/layouts/Footer";
 import Navbar from "./Navbar";
-import { dongengNusantara } from "../data";
 import { Link } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useParams } from "react-router-dom";
-import Swal from "sweetalert2";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 const Detail = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [datas, setDatas] = useState([]);
+  const [user, setUser] = useState([]);
   const [likes, setLikes] = useState([]);
-  const [userLike, setUserLike] = useState(false);
-  const [totalLike, setTotalLike] = useState(1);
+  const [favorites, setFavorites] = useState([]);
+  // warna
+  const [userLike, setUserLike] = useState(true);
+  const [userFav, setUserFav] = useState(true);
+  const [nameFav, setNameFav] = useState("Add Favorite");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,31 +30,15 @@ const Detail = () => {
         console.log(error);
       }
     };
-
     fetchData();
   }, [id]);
-
-  const tambahLike = () => {
-    setUserLike(!userLike);
-    userLike ? setTotalLike(totalLike - 1) : setTotalLike(totalLike + 1);
-  };
-
-  const addFavorite = () => {
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Berhasil menambahkan ke Favorite!",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/likes");
+        let res = await fetch("http://localhost:4000/users");
         let { data } = await res.json();
-        setLikes(data);
+        setUser(data);
       } catch (error) {
         console.log(error);
       }
@@ -59,7 +46,159 @@ const Detail = () => {
     fetchData();
   }, []);
 
-  // const totalLike = likes.filter((like) => like.cerita_id == id);
+  const [userLogin] = user.filter(
+    (us) => us.email == localStorage.getItem("email")
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [userLogin] = user.filter(
+          (us) => us.email == localStorage.getItem("email")
+        );
+        let res = await fetch("http://localhost:4000/likes");
+        let { data } = await res.json();
+        const total = data.filter((like) => like.cerita_id == id);
+        setLikes(total);
+        if (total.length > 0) {
+          const { id: user_id } = userLogin;
+          const diLike = total.filter((like) => like.user_id == user_id);
+          console.log(user_id);
+          console.log(total[0].user_id);
+          if (diLike.length > 0) {
+            // console.log("hi");
+            setUserLike(true);
+          } else {
+            // console.log("halo");
+            setUserLike(false);
+          }
+        } else {
+          // console.log("halo");
+          setUserLike(false);
+          console.log(userLike);
+        }
+        // console.log("hkhk", total);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let res = await fetch("http://localhost:4000/likes");
+        let { data } = await res.json();
+        const total = data.filter((like) => like.cerita_id == id);
+        setLikes(total);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let res = await fetch("http://localhost:4000/likes");
+        let { data } = await res.json();
+        const total = data.filter((like) => like.cerita_id == id);
+        setLikes(total);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [userLike]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let res = await fetch("http://localhost:4000/favorites");
+        let { data } = await res.json();
+        const total = data.filter((fav) => fav.id_cerita == id);
+        if (total.length > 0) {
+          const [userLogin] = user.filter(
+            (us) => us.email == localStorage.getItem("email")
+          );
+          const { id: user_id } = userLogin;
+          const diFav = total.filter((fav) => fav.id_user == user_id);
+          console.log(user_id);
+          console.log(total[0].id_user);
+          if (diFav.length > 0) {
+            console.log("hi");
+            setUserFav(true);
+            setNameFav("Remove Favorite");
+          } else {
+            console.log("halo");
+            setUserFav(false);
+            setNameFav("Add Favorite");
+          }
+        } else {
+          console.log("halo");
+          setUserFav(false);
+          setNameFav("Add Favorite");
+          console.log(userLike);
+        }
+        setFavorites(total);
+        console.log("fav", total);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (favorites.length > 0) {
+      const [userLogin] = user.filter(
+        (us) => us.email == localStorage.getItem("email")
+      );
+      const { id: user_id } = userLogin;
+      const diFav = favorites.filter((fav) => fav.id_user == user_id);
+      console.log(user_id);
+      console.log(diFav[0].id_user);
+      if (diFav.length > 0) {
+        console.log("ki");
+        setNameFav("Remove Favorite");
+      } else {
+        console.log("hu");
+        setNameFav("Add Favorite");
+      }
+    } else {
+      setNameFav("Add Favorite");
+    }
+  }, [userFav, favorites]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let res = await fetch("http://localhost:4000/favorites");
+        let { data } = await res.json();
+        const total = data.filter((fav) => fav.id_cerita == id);
+        setFavorites(total);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let res = await fetch("http://localhost:4000/favorites");
+        let { data } = await res.json();
+        const total = data.filter((fav) => fav.id_cerita == id);
+        setFavorites(total);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [userFav]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,33 +214,116 @@ const Detail = () => {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       let res = await fetch(`http://localhost:4000/likes`, {
-  //         method: 'POST',
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           email: e.target.email.value,
-  //           username: e.target.username.value,
-  //           password: e.target.password.value,
-  //         }),
-  //       });
-  //       let data = await res.json();
-  //       setDatas(data.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  const tambahLike = async () => {
+    const telahDiLike = likes.filter((like) => like.user_id === userLogin.id);
+    if (telahDiLike.length > 0) {
+      try {
+        let res = await fetch(
+          `http://localhost:4000/likes/${telahDiLike[0].id}`,
+          {
+            method: "DELETE",
+          }
+        );
 
-  //   fetchData();
-  // }, []);
+        if (!res.ok) {
+          throw new Error("Gagal menghapus like");
+        }
+        setUserLike(!userLike);
+        console.log("Berhasil menghapus like cerita");
+      } catch (error) {
+        console.error("Error saat melakukan fetch:", error);
+      }
+    } else {
+      // Pastikan id dan userLogin.id tidak undefined
+      if (!id || !userLogin || !userLogin.id) {
+        console.error("ID cerita atau ID pengguna tidak tersedia.");
+        return;
+      }
+
+      const data = JSON.stringify({
+        cerita_id: parseInt(id),
+        user_id: userLogin.id,
+      });
+
+      console.log(data);
+
+      try {
+        let res = await fetch("http://localhost:4000/likes", {
+          method: "POST",
+          body: data,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error("Gagal menambahkan like");
+        }
+        setUserLike(!userLike);
+        console.log("Berhasil like cerita");
+      } catch (error) {
+        console.error("Error saat melakukan fetch:", error);
+      }
+    }
+  };
+
+  const addFavorite = async () => {
+    const telahDiFav = favorites.filter((fav) => fav.id_user === userLogin.id);
+    console.log(telahDiFav);
+    if (telahDiFav.length > 0) {
+      try {
+        let res = await fetch(
+          `http://localhost:4000/favorites/${telahDiFav[0].id}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error("Gagal menghapus favorites");
+        }
+        setUserFav(!userFav);
+        console.log("Berhasil menghapus favorites cerita");
+      } catch (error) {
+        console.error("Error saat melakukan fetch:", error);
+      }
+    } else {
+      if (!id || !userLogin || !userLogin.id) {
+        console.error("ID cerita atau ID pengguna tidak tersedia.");
+        return;
+      }
+
+      const data = JSON.stringify({
+        id_cerita: parseInt(id),
+        id_user: userLogin.id,
+      });
+
+      console.log(data);
+
+      try {
+        let res = await fetch("http://localhost:4000/favorites", {
+          method: "POST",
+          body: data,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error("Gagal menambahkan like");
+        }
+        setUserFav(!userFav);
+        console.log("Berhasil menyimpan ke Favorite!");
+      } catch (error) {
+        console.error("Error saat melakukan fetch:", error);
+      }
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
+
   return (
     <>
       {data.map((data, index) => (
@@ -127,7 +349,7 @@ const Detail = () => {
                     style={{ backgroundColor: "#B2AFE7" }}
                     onClick={() => addFavorite()}
                   >
-                    Add Favorite
+                    {nameFav}
                   </button>
                   <div className="flex flex-col gap-1">
                     <button
@@ -145,8 +367,19 @@ const Detail = () => {
                       <FavoriteIcon
                         sx={{ color: userLike ? "red" : "white" }}
                       />
-                      {/* {totalLike.length} */}
-                      {totalLike}
+                      {likes.length}
+                      {/* {totalLike} */}
+                    </button>
+                    <button
+                      className="w-full rounded-md flex justify-start px-5 gap-12 items-center text-white font-medium h-10"
+                      style={{ backgroundColor: "#8DAAE5" }}
+                      onClick={() => addFavorite()}
+                    >
+                      <BookmarkIcon
+                        sx={{ color: userFav ? "yellow" : "white" }}
+                      />
+                      {favorites.length}
+                      {/* {totalFav} */}
                     </button>
 
                     <div

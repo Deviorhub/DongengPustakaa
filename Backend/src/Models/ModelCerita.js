@@ -2,7 +2,7 @@ import db from "../Config/Database.js";
 
 export const getAllCeritas = async () => {
   try {
-    const SQLQuery = "SELECT * FROM ceritas";
+    const SQLQuery = "SELECT * FROM ceritas ORDER BY created_at DESC";
     const [rows] = await db.execute(SQLQuery);
     return rows;
   } catch (error) {
