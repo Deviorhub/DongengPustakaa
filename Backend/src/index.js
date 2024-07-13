@@ -14,13 +14,25 @@ import logRequest from "./Middleware/log.js";
 const PORT = process.env.PORT;
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(logRequest);
 app.use(express.json());
 app.use(cookieParser());
 
 const server = http.createServer(app);
-app.use(UserRoute, KategoriRoute, CeritaRoute, LikeRoute, FavoriteRoute, SearchRouter);
+app.use(
+  UserRoute,
+  KategoriRoute,
+  CeritaRoute,
+  LikeRoute,
+  FavoriteRoute,
+  SearchRouter
+);
 
 server.listen(PORT, () => {
   console.log(`Server berjalan pada http://localhost:${PORT}`);

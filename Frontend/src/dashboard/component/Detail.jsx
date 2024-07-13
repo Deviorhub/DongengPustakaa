@@ -7,6 +7,7 @@ import StarIcon from "@mui/icons-material/Star";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useParams } from "react-router-dom";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import Cookies from "js-cookie";
 
 const Detail = () => {
   const { id } = useParams();
@@ -46,25 +47,43 @@ const Detail = () => {
     fetchData();
   }, []);
 
-  const [userLogin] = user.filter(
+  let [userLogin] = user.filter(
     (us) => us.email == localStorage.getItem("email")
   );
 
+  if (userLogin == undefined) {
+    userLogin = 0;
+  }
+
+  console.log("gak", userLogin);
+
+  // const token = Cookies.get("token");
+  // console.log(token);
+  // console.log(`Bearer ${token}`);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [userLogin] = user.filter(
-          (us) => us.email == localStorage.getItem("email")
-        );
-        let res = await fetch("http://localhost:4000/likes");
+        let res = await fetch("http://localhost:4000/likes", {
+          method: "GET",
+          credentials: "include",
+        });
+        // console.log(`Bearer ${token}`);
         let { data } = await res.json();
         const total = data.filter((like) => like.cerita_id == id);
         setLikes(total);
+        console.log("total", total);
         if (total.length > 0) {
+          let [userLogin] = user.filter(
+            (us) => us.email == localStorage.getItem("email")
+          );
+
+          if (userLogin == undefined) {
+            userLogin = 0;
+          }
           const { id: user_id } = userLogin;
           const diLike = total.filter((like) => like.user_id == user_id);
           console.log(user_id);
-          console.log(total[0].user_id);
+          console.log("gfgfg", total[0].user_id);
           if (diLike.length > 0) {
             // console.log("hi");
             setUserLike(true);
@@ -85,10 +104,15 @@ const Detail = () => {
     fetchData();
   }, []);
 
+  console.log(likes);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/likes");
+        let res = await fetch("http://localhost:4000/likes", {
+          method: "GET",
+          credentials: "include",
+        });
         let { data } = await res.json();
         const total = data.filter((like) => like.cerita_id == id);
         setLikes(total);
@@ -102,7 +126,10 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/likes");
+        let res = await fetch("http://localhost:4000/likes", {
+          method: "GET",
+          credentials: "include",
+        });
         let { data } = await res.json();
         const total = data.filter((like) => like.cerita_id == id);
         setLikes(total);
@@ -116,13 +143,13 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/favorites");
+        let res = await fetch("http://localhost:4000/favorites", {
+          method: "GET",
+          credentials: "include",
+        });
         let { data } = await res.json();
         const total = data.filter((fav) => fav.id_cerita == id);
         if (total.length > 0) {
-          const [userLogin] = user.filter(
-            (us) => us.email == localStorage.getItem("email")
-          );
           const { id: user_id } = userLogin;
           const diFav = total.filter((fav) => fav.id_user == user_id);
           console.log(user_id);
@@ -153,13 +180,9 @@ const Detail = () => {
 
   useEffect(() => {
     if (favorites.length > 0) {
-      const [userLogin] = user.filter(
-        (us) => us.email == localStorage.getItem("email")
-      );
       const { id: user_id } = userLogin;
       const diFav = favorites.filter((fav) => fav.id_user == user_id);
       console.log(user_id);
-      console.log(diFav[0].id_user);
       if (diFav.length > 0) {
         console.log("ki");
         setNameFav("Remove Favorite");
@@ -175,7 +198,10 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/favorites");
+        let res = await fetch("http://localhost:4000/favorites", {
+          method: "GET",
+          credentials: "include",
+        });
         let { data } = await res.json();
         const total = data.filter((fav) => fav.id_cerita == id);
         setFavorites(total);
@@ -189,7 +215,10 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/favorites");
+        let res = await fetch("http://localhost:4000/favorites", {
+          method: "GET",
+          credentials: "include",
+        });
         let { data } = await res.json();
         const total = data.filter((fav) => fav.id_cerita == id);
         setFavorites(total);
@@ -203,7 +232,9 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch(`http://localhost:4000/ceritas`);
+        let res = await fetch(`http://localhost:4000/ceritas`, {
+          method: "GET",
+        });
         let data = await res.json();
         setDatas(data.data);
       } catch (error) {
@@ -222,6 +253,7 @@ const Detail = () => {
           `http://localhost:4000/likes/${telahDiLike[0].id}`,
           {
             method: "DELETE",
+            credentials: "include",
           }
         );
 
@@ -250,6 +282,7 @@ const Detail = () => {
       try {
         let res = await fetch("http://localhost:4000/likes", {
           method: "POST",
+          credentials: "include",
           body: data,
           headers: {
             "Content-Type": "application/json",
@@ -276,6 +309,7 @@ const Detail = () => {
           `http://localhost:4000/favorites/${telahDiFav[0].id}`,
           {
             method: "DELETE",
+            credentials: "include",
           }
         );
 
@@ -303,6 +337,7 @@ const Detail = () => {
       try {
         let res = await fetch("http://localhost:4000/favorites", {
           method: "POST",
+          credentials: "include",
           body: data,
           headers: {
             "Content-Type": "application/json",

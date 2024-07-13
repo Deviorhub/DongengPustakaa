@@ -176,3 +176,20 @@ export const logoutUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const loginStatus = async (req, res) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.json(false);
+  }
+
+  // jika ada token
+  const verified = await jwt.verify(token, process.env.JWT_SECRET_TOKEN);
+
+  if (verified) {
+    return res.json(true);
+  }
+
+  return res.json(false);
+};
