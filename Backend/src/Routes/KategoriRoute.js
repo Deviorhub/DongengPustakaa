@@ -1,13 +1,13 @@
-import express from "express"
+import express from "express";
 import {
-    createKategoriController, 
-    deleteKategoriController, 
-    getAllKategorisController, 
-    getKategorisById,
-    updateKategoriController,
-} from "../Controller/KategoriController.js"
+  createKategoriController,
+  deleteKategoriController,
+  getAllKategorisController,
+  getKategorisById,
+  updateKategoriController,
+} from "../Controller/KategoriController.js";
 
-const router = express.Router()
+const router = express.Router();
 router.get("/kategoris", getAllKategorisController);
 router.get("/kategoris/:id", getKategorisById);
 router.post("/kategoris", createKategoriController);

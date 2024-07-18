@@ -12,7 +12,10 @@ import { SearchIcon } from "@heroicons/react/solid";
 
 const Dashboard = () => {
   const [datas, setDatas] = useState([]);
+  const [kategoris, setKategoris] = useState([]);
   const [search, setSearch] = useState("");
+  const [kategori, setKategori] = useState("");
+  const [rating, setRating] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +23,20 @@ const Dashboard = () => {
         let res = await fetch("http://localhost:4000/ceritas");
         let { data } = await res.json();
         setDatas(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let res = await fetch("http://localhost:4000/kategoris");
+        let { data } = await res.json();
+        setKategoris(data);
       } catch (error) {
         console.log(error);
       }
@@ -55,6 +72,73 @@ const Dashboard = () => {
       });
   }, [search]);
 
+  const changeKategori = (value) => {
+    setKategori(value);
+  };
+
+  useEffect(() => {
+    const changeData = async () => {
+      try {
+        if (kategori != "Semua") {
+          const [idKategori] = kategoris.filter(
+            (data) => data.NAME == kategori
+          );
+          let res = await fetch("http://localhost:4000/ceritas");
+          let { data } = await res.json();
+          const cerita = data.filter((d) => d.kategori_id == idKategori.id);
+          console.log(cerita);
+          setDatas(cerita);
+        } else {
+          let res = await fetch("http://localhost:4000/ceritas");
+          let { data } = await res.json();
+          console.log(data);
+          setDatas(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    changeData();
+  }, [kategori]);
+
+  const searchRating = (value) => {
+    console.log("testetstets");
+    setRating(value);
+    console.log(rating);
+  };
+
+  useEffect(() => {
+    const ratingData = async () => {
+      try {
+        if (rating == "5 - 4") {
+          let res = await fetch("http://localhost:4000/ceritas");
+          let { data } = await res.json();
+          const cerita = data.filter((d) => d.rating == 5 || d.rating == 4);
+          console.log(cerita);
+          setDatas(cerita);
+        } else if (rating == "3 - 1") {
+          let res = await fetch("http://localhost:4000/ceritas");
+          let { data } = await res.json();
+          const cerita = data.filter(
+            (d) => d.rating == 3 || d.rating == 2 || d.rating == 1
+          );
+          console.log(cerita);
+          setDatas(cerita);
+        } else {
+          let res = await fetch("http://localhost:4000/ceritas");
+          let { data } = await res.json();
+          console.log(data);
+          setDatas(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    ratingData();
+  }, [rating]);
+
+  // console.log(datas);
+
   // Contoh endpoint API
 
   return (
@@ -76,29 +160,53 @@ const Dashboard = () => {
             <Dropdown
               label={
                 <div className="flex items-center text-[#282828] px-3">
-                  <span className="mr-2">Kategori</span>
+                  <span className="mr-2">
+                    {kategori == "" ? "Kategori" : kategori}
+                  </span>
                   <ChevronDownIcon className="w-5 h-5" />
                 </div>
               }
               dismissOnClick={false}
             >
-              <Dropdown.Item className="p-4">Cerita Rakyat</Dropdown.Item>
-              <Dropdown.Item className="p-4">Kisah Dongeng</Dropdown.Item>
+              <Dropdown.Item
+                className="p-4"
+                onClick={() => changeKategori("Cerita Rakyat")}
+              >
+                Cerita Rakyat
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="p-4"
+                onClick={() => changeKategori("Dongeng")}
+              >
+                Dongeng
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="p-4"
+                onClick={() => changeKategori("Semua")}
+              >
+                Semua
+              </Dropdown.Item>
             </Dropdown>
             <Dropdown
               label={
                 <div className="flex items-center text-[#282828] px-3">
-                  <span className="mr-2">Rating</span>
+                  <span className="mr-2">
+                    {rating == "" ? "Rating" : rating}
+                  </span>
                   <ChevronDownIcon className="w-5 h-5" />
                 </div>
               }
               dismissOnClick={false}
             >
-              <Dropdown.Item>
+              <Dropdown.Item onClick={() => searchRating("5 - 4")}>
                 <StarIcon sx={{ color: "yellow" }} className="p-4" />5 - 4
               </Dropdown.Item>
-              <Dropdown.Item>
+              <Dropdown.Item onClick={() => searchRating("3 - 1")}>
                 <StarIcon sx={{ color: "yellow" }} className="p-4" />3 - 1
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => searchRating("Semua")}>
+                <StarIcon sx={{ color: "yellow" }} className="p-4" />
+                Semua
               </Dropdown.Item>
             </Dropdown>
           </div>
