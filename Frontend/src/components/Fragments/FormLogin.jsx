@@ -31,13 +31,14 @@ const FormLogin = () => {
       if (response.ok) {
         localStorage.setItem("username", data.username);
         localStorage.setItem("email", data.email);
-        // Cookies.set("token", data.token);
+        alert("Selamat Anda Berhasil Login");
         navigate("/dashboard");
       } else {
         alert(data.message);
       }
     } catch (error) {
       console.log(error);
+      alert("Maaf, Terjadi Kesalahan Saat Login");
     }
   };
   return (
