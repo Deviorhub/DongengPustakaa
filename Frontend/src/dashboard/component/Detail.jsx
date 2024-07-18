@@ -57,9 +57,6 @@ const Detail = () => {
 
   console.log("gak", userLogin);
 
-  // const token = Cookies.get("token");
-  // console.log(token);
-  // console.log(`Bearer ${token}`);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -372,12 +369,12 @@ const Detail = () => {
           >
             <Navbar />
           </div>
-          <div className="px-32 w-full">
+          <div className="lg:px-32 px-10 py-10 lg:py-0 w-full">
             <div className="absolute top-40">
               <Card img={data.image} />
             </div>
-            <div className="flex w-full">
-              <div className="w-52 pt-24 mb-20">
+            <div className="flex lg:flex-row flex-col w-full">
+              <div className="lg:w-52 hidden lg:flex w-full lg:pt-24 mb-20">
                 <div className="flex flex-col gap-3">
                   <button
                     className="w-full rounded-md text-white font-medium h-10"
@@ -445,7 +442,7 @@ const Detail = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-4/5 pl-16 py-10">
+              <div className="lg:w-4/5 w-full lg:pl-16 lg:py-10">
                 <h3 className="text-slate-700 font-semibold mb-4 text-xl">
                   Cerita Rakyat: {data.judul}
                 </h3>
@@ -454,12 +451,80 @@ const Detail = () => {
                   dangerouslySetInnerHTML={{ __html: data.isi }}
                 ></div>
               </div>
+              <div className="lg:w-52 lg:hidden w-full lg:pt-24 pt-12 mb-20">
+                <div className="flex flex-col gap-3">
+                  <button
+                    className="w-full rounded-md text-white font-medium h-10"
+                    style={{ backgroundColor: "#B2AFE7" }}
+                    onClick={() => addFavorite()}
+                  >
+                    {nameFav}
+                  </button>
+                  <div className="flex flex-col gap-1">
+                    <button
+                      className="w-full rounded-md flex justify-start px-5 gap-12 items-center text-white font-medium h-10"
+                      style={{ backgroundColor: "#8DAAE5" }}
+                    >
+                      <StarIcon sx={{ color: "yellow" }} />
+                      {data.rating}
+                    </button>
+                    <button
+                      className="w-full rounded-md flex justify-start px-5 gap-12 items-center text-white font-medium h-10"
+                      style={{ backgroundColor: "#8DAAE5" }}
+                      onClick={() => tambahLike()}
+                    >
+                      <FavoriteIcon
+                        sx={{ color: userLike ? "red" : "white" }}
+                      />
+                      {likes.length}
+                      {/* {totalLike} */}
+                    </button>
+                    <button
+                      className="w-full rounded-md flex justify-start px-5 gap-12 items-center text-white font-medium h-10"
+                      style={{ backgroundColor: "#8DAAE5" }}
+                      onClick={() => addFavorite()}
+                    >
+                      <BookmarkIcon
+                        sx={{ color: userFav ? "yellow" : "white" }}
+                      />
+                      {favorites.length}
+                      {/* {totalFav} */}
+                    </button>
+
+                    <div
+                      className="w-full rounded-md p-5"
+                      style={{ backgroundColor: "#8DAAE5" }}
+                    >
+                      <div className="flex flex-col gap-3 mb-5">
+                        <h5 className="text-white text-sm font-bold">Jenis</h5>
+                        <p className="text-sm text-gray-100">Cerita Rakyat</p>
+                      </div>
+                      <div className="flex flex-col gap-3 mb-5">
+                        <h5 className="text-white text-sm font-bold">Asal</h5>
+                        <p className="text-sm text-gray-100">{data.asal}</p>
+                      </div>
+                      <div className="flex flex-col gap-3 mb-5">
+                        <h5 className="text-white text-sm font-bold">
+                          Karakter
+                        </h5>
+                        <p className="text-sm text-gray-100">{data.karakter}</p>
+                      </div>
+                      <div className="flex flex-col gap-3 mb-5">
+                        <h5 className="text-white text-sm font-bold">
+                          Sinopsis
+                        </h5>
+                        <p className="text-sm text-gray-100">{data.sinopsis}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div>
               <h1 className="text-slate-800 text-3xl font-medium">
                 Rekomendasi Lainnya:
               </h1>
-              <div className="flex flex-wrap justify-between items-center container mx-auto py-10">
+              <div className="grid grid-cols-2 gap-5 md:grid md:grid-cols-3 lg:gap-10 lg:grid lg:grid-cols-4 lg:px-20 px-5 py-10">
                 {datas.map((data, index) => (
                   <Link
                     key={index}

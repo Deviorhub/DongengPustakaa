@@ -61,8 +61,8 @@ const Dashboard = () => {
     <>
       <Header />
       <div className="container mx-auto mt-10 px-20">
-        <div className="lg:flex items-center justify-center  lg:gap-x-6">
-          <div className="flex justify-center items-center gap-x-4 border border-gray-300 rounded-md px-3 lg:w-3/5">
+        <div className="lg:flex items-center justify-center lg:gap-x-6">
+          <div className="flex justify-center items-center gap-x-4 border border-gray-300 w-full rounded-md px-3 lg:w-3/5">
             <input
               type="text"
               className="flex-1 outline-none border-none"
@@ -72,7 +72,7 @@ const Dashboard = () => {
             />
             <SearchIcon className="h-5 w-5 text-gray-500 mr-2" />
           </div>
-          <div className="flex justify-end items-center gap-x-4 mt-2">
+          <div className="lg:flex-row flex flex-row gap-2 justify-center items-center gap-x-4 mt-2">
             <Dropdown
               label={
                 <div className="flex items-center text-[#282828] px-3">
@@ -104,7 +104,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid md:grid-cols-3 lg:grid lg:grid-cols-6 px-20 py-10">
+      <div className="grid grid-cols-2 gap-5 md:grid md:grid-cols-3 lg:gap-10 lg:grid lg:grid-cols-5 lg:px-20 px-5 py-10">
         {datas.map((data, index) => (
           <Link key={index} to={`detail/${data.id}`} className="cursor-pointer">
             <Card judul={data.judul} img={data.image} rating={data.rating} />
