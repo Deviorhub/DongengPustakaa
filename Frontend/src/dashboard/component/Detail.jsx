@@ -285,6 +285,7 @@ const Detail = () => {
       // Pastikan id dan userLogin.id tidak undefined
       if (!id || !userLogin || !userLogin.id) {
         console.error("ID cerita atau ID pengguna tidak tersedia.");
+        alert("Untuk melakukan like, Silahkan Login!");
         return;
       }
 
@@ -339,6 +340,7 @@ const Detail = () => {
       }
     } else {
       if (!id || !userLogin || !userLogin.id) {
+        alert("Untuk menyimpan cerita, Silahkan Login!");
         console.error("ID cerita atau ID pengguna tidak tersedia.");
         return;
       }
