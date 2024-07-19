@@ -21,6 +21,8 @@ const Detail = () => {
   const [userFav, setUserFav] = useState(true);
   const [nameFav, setNameFav] = useState("Add Favorite");
 
+  console.log(userLike);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -55,8 +57,6 @@ const Detail = () => {
     userLogin = 0;
   }
 
-  console.log("gak", userLogin);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -66,42 +66,39 @@ const Detail = () => {
         });
         // console.log(`Bearer ${token}`);
         let { data } = await res.json();
-        const total = data.filter((like) => like.cerita_id == id);
+        const total = await data.filter((like) => like.cerita_id == id);
         setLikes(total);
-        console.log("total", total);
+        let userLogin;
         if (total.length > 0) {
-          let [userLogin] = user.filter(
-            (us) => us.email == localStorage.getItem("email")
-          );
-
-          if (userLogin == undefined) {
+          if (user) {
+            userLogin = await user.filter(
+              (us) => us.email == localStorage.getItem("email")
+            );
+          } else {
             userLogin = 0;
           }
-          const { id: user_id } = userLogin;
-          const diLike = total.filter((like) => like.user_id == user_id);
-          console.log(user_id);
-          console.log("gfgfg", total[0].user_id);
+
+          let [userLog] = userLogin;
+
+          console.log(userLog);
+          const diLike = await total.filter(
+            (like) => like.user_id == userLog.id
+          );
+          console.log(diLike);
           if (diLike.length > 0) {
-            // console.log("hi");
             setUserLike(true);
           } else {
-            // console.log("halo");
             setUserLike(false);
           }
         } else {
-          // console.log("halo");
           setUserLike(false);
-          console.log(userLike);
         }
-        // console.log("hkhk", total);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
   }, []);
-
-  console.log(likes);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -147,27 +144,28 @@ const Detail = () => {
         let { data } = await res.json();
         const total = data.filter((fav) => fav.id_cerita == id);
         if (total.length > 0) {
-          const { id: user_id } = userLogin;
-          const diFav = total.filter((fav) => fav.id_user == user_id);
-          console.log(user_id);
-          console.log(total[0].id_user);
+          if (user) {
+            userLogin = await user.filter(
+              (us) => us.email == localStorage.getItem("email")
+            );
+          } else {
+            userLogin = 0;
+          }
+
+          let [userLog] = userLogin;
+          const diFav = total.filter((fav) => fav.id_user == userLog.id);
           if (diFav.length > 0) {
-            console.log("hi");
             setUserFav(true);
             setNameFav("Remove Favorite");
           } else {
-            console.log("halo");
             setUserFav(false);
             setNameFav("Add Favorite");
           }
         } else {
-          console.log("halo");
           setUserFav(false);
           setNameFav("Add Favorite");
-          console.log(userLike);
         }
         setFavorites(total);
-        console.log("fav", total);
       } catch (error) {
         console.log(error);
       }
@@ -179,12 +177,9 @@ const Detail = () => {
     if (favorites.length > 0) {
       const { id: user_id } = userLogin;
       const diFav = favorites.filter((fav) => fav.id_user == user_id);
-      console.log(user_id);
       if (diFav.length > 0) {
-        console.log("ki");
         setNameFav("Remove Favorite");
       } else {
-        console.log("hu");
         setNameFav("Add Favorite");
       }
     } else {
@@ -241,6 +236,30 @@ const Detail = () => {
 
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   console.log("dfsdjfdsjfjdsfsdjijjsdjdsjdsj");
+  //   const cekLike = async () => {
+  //     let [userLogin] = user.filter(
+  //       (us) => us.email == localStorage.getItem("email")
+  //     );
+
+  //     if (userLogin == undefined) {
+  //       userLogin = 0;
+  //     }
+  //     const telahDiLike = likes.filter((like) => like.user_id === userLogin.id);
+  //     if (telahDiLike.length > 0) {
+  //       console.log("hai");
+  //       setUserLike(true);
+  //     } else {
+  //       console.log("hio");
+  //       setUserLike(false);
+  //     }
+  //   };
+  //   cekLike();
+  // }, []);
+
+  // console.log(userLike);
 
   const tambahLike = async () => {
     const telahDiLike = likes.filter((like) => like.user_id === userLogin.id);
