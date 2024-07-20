@@ -5,6 +5,7 @@
   "description": "Backend project DongengPustaka",
   "main": "index.js",
   "scripts": {
+    "preinstall": "chmod +x ./node_modules/.bin/node-pre-gyp",
     "postinstall": "npm rebuild bcrypt --build-from-source",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/index.js"
