@@ -26,7 +26,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch(`http://localhost:4000/ceritas/${id}`);
+        let res = await fetch(`http://47.129.5.207:4000/ceritas/${id}`);
         let data = await res.json();
         setData(data.data);
       } catch (error) {
@@ -39,7 +39,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/users");
+        let res = await fetch("http://47.129.5.207:4000/users");
         let { data } = await res.json();
         setUser(data);
       } catch (error) {
@@ -60,7 +60,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/likes", {
+        let res = await fetch("http://47.129.5.207:4000/likes", {
           method: "GET",
           credentials: "include",
         });
@@ -103,7 +103,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/likes", {
+        let res = await fetch("http://47.129.5.207:4000/likes", {
           method: "GET",
           credentials: "include",
         });
@@ -120,7 +120,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/likes", {
+        let res = await fetch("http://47.129.5.207:4000/likes", {
           method: "GET",
           credentials: "include",
         });
@@ -137,7 +137,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/favorites", {
+        let res = await fetch("http://47.129.5.207:4000/favorites", {
           method: "GET",
           credentials: "include",
         });
@@ -190,7 +190,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/favorites", {
+        let res = await fetch("http://47.129.5.207:4000/favorites", {
           method: "GET",
           credentials: "include",
         });
@@ -207,7 +207,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:4000/favorites", {
+        let res = await fetch("http://47.129.5.207:4000/favorites", {
           method: "GET",
           credentials: "include",
         });
@@ -224,7 +224,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch(`http://localhost:4000/ceritas`, {
+        let res = await fetch(`http://47.129.5.207:4000/ceritas`, {
           method: "GET",
         });
         let data = await res.json();
@@ -266,7 +266,7 @@ const Detail = () => {
     if (telahDiLike.length > 0) {
       try {
         let res = await fetch(
-          `http://localhost:4000/likes/${telahDiLike[0].id}`,
+          `http://47.129.5.207:4000/likes/${telahDiLike[0].id}`,
           {
             method: "DELETE",
             credentials: "include",
@@ -297,7 +297,7 @@ const Detail = () => {
       console.log(data);
 
       try {
-        let res = await fetch("http://localhost:4000/likes", {
+        let res = await fetch("http://47.129.5.207:4000/likes", {
           method: "POST",
           credentials: "include",
           body: data,
@@ -323,7 +323,7 @@ const Detail = () => {
     if (telahDiFav.length > 0) {
       try {
         let res = await fetch(
-          `http://localhost:4000/favorites/${telahDiFav[0].id}`,
+          `http://47.129.5.207:4000/favorites/${telahDiFav[0].id}`,
           {
             method: "DELETE",
             credentials: "include",
@@ -353,7 +353,7 @@ const Detail = () => {
       console.log(data);
 
       try {
-        let res = await fetch("http://localhost:4000/favorites", {
+        let res = await fetch("http://47.129.5.207:4000/favorites", {
           method: "POST",
           credentials: "include",
           body: data,

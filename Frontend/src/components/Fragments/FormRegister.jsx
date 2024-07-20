@@ -25,7 +25,7 @@ const FormRegister = () => {
     console.log(e.target.email.value);
     try {
       console.log("hai");
-      const response = await fetch("http://localhost:4000/register", {
+      const response = await fetch("http://47.129.5.207:4000/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
