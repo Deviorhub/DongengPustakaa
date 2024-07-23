@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 
 async function checkLoginStatus() {
   try {
-    const response = await fetch("https://backend-dongeng-pustakaa.vercel.app/loginStatus", {
+    const response = await fetch("https://backend-dongeng-pustakaa.vercel.app/login-status", {
       method: "GET",
       credentials: "include", // Include cookies in the request
     });
