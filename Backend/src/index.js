@@ -13,7 +13,7 @@ import logRequest from "./Middleware/log.js";
 const PORT = process.env.PORT;
 
 const app = express();
-app.use(cors());
+app.use(cors({credentials: true}));
 app.use(logRequest);
 app.use(express.json());
 app.use(cookieParser());
