@@ -41,6 +41,6 @@ app.use(
   SearchRouter
 );
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server berjalan pada http://localhost:${PORT}`);
 });
