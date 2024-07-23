@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
-import http from "http";
 import UserRoute from "./Routes/UserRoute.js";
 import KategoriRoute from "./Routes/KategoriRoute.js";
 import CeritaRoute from "./Routes/CeritaRoute.js";
@@ -21,11 +20,18 @@ app.use(
     optionsSuccessStatus: 200
   })
 );
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://dongeng-pustaka-gamma.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 app.use(logRequest);
 app.use(express.json());
 app.use(cookieParser());
 
-const server = http.createServer(app);
 app.use(
   UserRoute,
   KategoriRoute,
