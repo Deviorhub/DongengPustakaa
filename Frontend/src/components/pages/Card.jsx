@@ -7,7 +7,7 @@ const Card = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://47.129.5.207:4000/ceritas");
+        let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/ceritas");
         let { data } = await res.json();
         setDatas(data);
       } catch (error) {
