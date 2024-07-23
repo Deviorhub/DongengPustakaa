@@ -13,21 +13,7 @@ import logRequest from "./Middleware/log.js";
 const PORT = process.env.PORT;
 
 const app = express();
-app.use(
-  cors({
-    origin: "https://dongeng-pustaka-gamma.vercel.app/",
-    credentials: true,
-    optionsSuccessStatus: 200
-  })
-);
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://dongeng-pustaka-gamma.vercel.app');
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
-
+app.use(cors());
 app.use(logRequest);
 app.use(express.json());
 app.use(cookieParser());
