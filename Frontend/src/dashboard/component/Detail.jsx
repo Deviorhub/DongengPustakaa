@@ -26,7 +26,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch(`https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/users/${id}`);
+        let res = await fetch(`https://backend-dongeng-pustakaa.vercel.app/users/${id}`);
         let data = await res.json();
         setData(data.data);
       } catch (error) {
@@ -39,7 +39,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/users");
+        let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/users");
         let { data } = await res.json();
         setUser(data);
       } catch (error) {
@@ -60,7 +60,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/likes", {
+        let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/likes", {
           method: "GET",
           credentials: "include",
         });
@@ -103,7 +103,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/likes", {
+        let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/likes", {
           method: "GET",
           credentials: "include",
         });
@@ -120,7 +120,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/likes", {
+        let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/likes", {
           method: "GET",
           credentials: "include",
         });
@@ -137,7 +137,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/favorites", {
+        let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/favorites", {
           method: "GET",
           credentials: "include",
         });
@@ -190,7 +190,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/favorites", {
+        let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/favorites", {
           method: "GET",
           credentials: "include",
         });
@@ -207,7 +207,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/favorites", {
+        let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/favorites", {
           method: "GET",
           credentials: "include",
         });
@@ -224,7 +224,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch(`https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app`, {
+        let res = await fetch(`https://backend-dongeng-pustakaa.vercel.app`, {
           method: "GET",
         });
         let data = await res.json();
@@ -266,7 +266,7 @@ const Detail = () => {
     if (telahDiLike.length > 0) {
       try {
         let res = await fetch(
-          `https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/likes/${telahDiLike[0].id}`,
+          `https://backend-dongeng-pustakaa.vercel.app/likes/${telahDiLike[0].id}`,
           {
             method: "DELETE",
             credentials: "include",
@@ -297,7 +297,7 @@ const Detail = () => {
       console.log(data);
 
       try {
-        let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/likes", {
+        let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/likes", {
           method: "POST",
           credentials: "include",
           body: data,
@@ -323,7 +323,7 @@ const Detail = () => {
     if (telahDiFav.length > 0) {
       try {
         let res = await fetch(
-          `https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/favorites/${telahDiFav[0].id}`,
+          `https://backend-dongeng-pustakaa.vercel.app/favorites/${telahDiFav[0].id}`,
           {
             method: "DELETE",
             credentials: "include",
@@ -353,7 +353,7 @@ const Detail = () => {
       console.log(data);
 
       try {
-        let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/favorites", {
+        let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/favorites", {
           method: "POST",
           credentials: "include",
           body: data,

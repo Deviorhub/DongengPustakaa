@@ -20,7 +20,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/ceritas");
+        let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/ceritas");
         let { data } = await res.json();
         setDatas(data);
       } catch (error) {
@@ -34,7 +34,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/kategoris");
+        let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/kategoris");
         let { data } = await res.json();
         setKategoris(data);
       } catch (error) {
@@ -46,7 +46,7 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    const apiUrl = "https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/search";
+    const apiUrl = "https://backend-dongeng-pustakaa.vercel.app/search";
 
     // Objek untuk menyimpan parameter-parameter query
     const params = new URLSearchParams();
@@ -83,13 +83,13 @@ const Dashboard = () => {
           const [idKategori] = kategoris.filter(
             (data) => data.NAME == kategori
           );
-          let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/ceritas");
+          let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/ceritas");
           let { data } = await res.json();
           const cerita = data.filter((d) => d.kategori_id == idKategori.id);
           console.log(cerita);
           setDatas(cerita);
         } else {
-          let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/ceritas");
+          let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/ceritas");
           let { data } = await res.json();
           console.log(data);
           setDatas(data);
@@ -111,13 +111,13 @@ const Dashboard = () => {
     const ratingData = async () => {
       try {
         if (rating == "5 - 4") {
-          let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/ceritas");
+          let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/ceritas");
           let { data } = await res.json();
           const cerita = data.filter((d) => d.rating == 5 || d.rating == 4);
           console.log(cerita);
           setDatas(cerita);
         } else if (rating == "3 - 1") {
-          let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/ceritas");
+          let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/ceritas");
           let { data } = await res.json();
           const cerita = data.filter(
             (d) => d.rating == 3 || d.rating == 2 || d.rating == 1
@@ -125,7 +125,7 @@ const Dashboard = () => {
           console.log(cerita);
           setDatas(cerita);
         } else {
-          let res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/ceritas");
+          let res = await fetch("https://backend-dongeng-pustakaa.vercel.app/ceritas");
           let { data } = await res.json();
           console.log(data);
           setDatas(data);

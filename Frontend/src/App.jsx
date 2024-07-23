@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/ceritas");
+        const res = await fetch("https://backend-dongeng-pustakaa.vercel.app/ceritas");
         const { data } = await res.json();
 
         const sortedData = data.sort(

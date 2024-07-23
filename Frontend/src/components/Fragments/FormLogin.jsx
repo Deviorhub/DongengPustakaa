@@ -14,7 +14,7 @@ const FormLogin = () => {
     console.log(e.target.email.value);
     try {
       console.log("hai");
-      const response = await fetch("https://backend-dongeng-pustakaa-mjzut4ho2-deviors-projects.vercel.app/login", {
+      const response = await fetch("https://backend-dongeng-pustakaa.vercel.app/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
