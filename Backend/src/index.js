@@ -13,7 +13,26 @@ import logRequest from "./Middleware/log.js";
 const PORT = process.env.PORT;
 
 const app = express();
-app.use(cors({credentials: true}));
+// Daftar origin yang diizinkan
+const allowedOrigins = [
+  'https://dongeng-pustaka-gamma.vercel.app',
+  'https://dongeng-pustaka-jqlot5hqx-deviors-projects.vercel.app',
+  'http://localhost:5173'
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Mengizinkan pengiriman credentials
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 app.use(logRequest);
 app.use(express.json());
 app.use(cookieParser());
