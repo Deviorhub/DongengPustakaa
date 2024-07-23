@@ -26,7 +26,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch(`https://backend-dongeng-pustakaa.vercel.app/users/${id}`);
+        let res = await fetch(`https://backend-dongeng-pustakaa.vercel.app/ceritas/${id}`);
         let data = await res.json();
         setData(data.data);
       } catch (error) {
