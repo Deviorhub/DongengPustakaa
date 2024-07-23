@@ -18,6 +18,7 @@ app.use(
   cors({
     origin: "https://dongeng-pustaka-gamma.vercel.app/",
     credentials: true,
+    optionsSuccessStatus: 200
   })
 );
 app.use(logRequest);
