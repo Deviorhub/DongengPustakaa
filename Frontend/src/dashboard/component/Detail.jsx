@@ -224,7 +224,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch(`https://backend-dongeng-pustakaa.vercel.app`, {
+        let res = await fetch(`https://backend-dongeng-pustakaa.vercel.app/ceritas`, {
           method: "GET",
         });
         let data = await res.json();
